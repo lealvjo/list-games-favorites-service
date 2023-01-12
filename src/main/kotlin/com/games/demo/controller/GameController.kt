@@ -56,8 +56,8 @@ class GameController(private val serviceGame: ServiceGame) {
 
     @DeleteMapping("/{id}")
     @Transactional
-    @CacheEvict(value = ["CacheByIdGame"], allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @CacheEvict(value = ["CacheByIdGame"], allEntries = true)
     fun deleteGame(@PathVariable id: Long) {
         serviceGame.delete(id)
     }
