@@ -4,6 +4,7 @@ import com.games.demo.dto.GamesForm
 import com.games.demo.dto.GamesView
 import com.games.demo.dto.UpdateGameForm
 import com.games.demo.service.ServiceGame
+import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -35,6 +36,7 @@ class GameController(private val serviceGame: ServiceGame) {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = ["CacheByIdGame"])
     fun registerGame(
         @RequestBody @Valid form: GamesForm,
         uriBuilder: UriComponentsBuilder
@@ -46,6 +48,7 @@ class GameController(private val serviceGame: ServiceGame) {
 
     @PutMapping
     @Transactional
+    @CacheEvict(value = ["CacheByIdGame"])
     fun updateTopic(@RequestBody @Valid form: UpdateGameForm): ResponseEntity<GamesView> {
         val gameUpdate = serviceGame.update(form)
         return ResponseEntity.ok(gameUpdate)
@@ -53,6 +56,7 @@ class GameController(private val serviceGame: ServiceGame) {
 
     @DeleteMapping("/{id}")
     @Transactional
+    @CacheEvict(value = ["CacheByIdGame"])
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteGame(@PathVariable id: Long) {
         serviceGame.delete(id)
