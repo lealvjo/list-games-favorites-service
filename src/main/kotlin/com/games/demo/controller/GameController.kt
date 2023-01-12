@@ -4,6 +4,7 @@ import com.games.demo.dto.GamesForm
 import com.games.demo.dto.GamesView
 import com.games.demo.dto.UpdateGameForm
 import com.games.demo.service.ServiceGame
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
@@ -27,6 +28,7 @@ class GameController(private val serviceGame: ServiceGame) {
     }
 
     @GetMapping("/{id}")
+    @Cacheable("CacheByIdGame")
     fun getGameById(@PathVariable id: Long): GamesView {
         return serviceGame.getGameById(id)
     }
