@@ -16,18 +16,18 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/games")
-class GameController (private val serviceGame: ServiceGame){
+class GameController(private val serviceGame: ServiceGame) {
 
     @GetMapping
     fun listGames(
         @RequestParam(required = false) nameGame: String?,
-        @PageableDefault(size = 5) pagination: Pageable
+        @PageableDefault(size = 5, sort = ["game"]) pagination: Pageable
     ): Page<GamesView> {
         return serviceGame.list(nameGame, pagination)
     }
 
     @GetMapping("/{id}")
-    fun getGameByById(@PathVariable id: Long): GamesView {
+    fun getGameById(@PathVariable id: Long): GamesView {
         return serviceGame.getGameById(id)
     }
 
