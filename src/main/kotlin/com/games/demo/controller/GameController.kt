@@ -48,7 +48,7 @@ class GameController(private val serviceGame: ServiceGame) {
 
     @PutMapping
     @Transactional
-    @CacheEvict(value = ["CacheByIdGame"])
+    @CacheEvict(value = ["CacheByIdGame"], allEntries = true)
     fun updateTopic(@RequestBody @Valid form: UpdateGameForm): ResponseEntity<GamesView> {
         val gameUpdate = serviceGame.update(form)
         return ResponseEntity.ok(gameUpdate)
