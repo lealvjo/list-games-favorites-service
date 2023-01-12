@@ -36,7 +36,7 @@ class GameController(private val serviceGame: ServiceGame) {
 
     @PostMapping
     @Transactional
-    @CacheEvict(value = ["CacheByIdGame"])
+    @CacheEvict(value = ["CacheByIdGame"], allEntries = true)
     fun registerGame(
         @RequestBody @Valid form: GamesForm,
         uriBuilder: UriComponentsBuilder
@@ -56,7 +56,7 @@ class GameController(private val serviceGame: ServiceGame) {
 
     @DeleteMapping("/{id}")
     @Transactional
-    @CacheEvict(value = ["CacheByIdGame"])
+    @CacheEvict(value = ["CacheByIdGame"], allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteGame(@PathVariable id: Long) {
         serviceGame.delete(id)
